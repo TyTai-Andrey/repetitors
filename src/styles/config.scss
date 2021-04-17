@@ -1,0 +1,11 @@
+$bg: #fff;
+$mainColor: #009990;
+
+
+
+
+@mixin btnFont() {
+  font-size: 16px;
+  line-height: 18.75px;
+  font-weight: 400;
+}
