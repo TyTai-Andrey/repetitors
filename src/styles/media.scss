@@ -1,0 +1,56 @@
+@media (max-width: 414px) {
+	.selects_group {
+		width: 333px;
+		height: 204px;
+		flex-direction: column;
+		margin: 23px auto 0;
+
+		.select {
+			width: 100%;
+		}
+
+		.search  {
+			width: 100%;
+		}
+	}
+
+	.font_btn {
+		font-size: 14px;
+		line-height: 16.41px;
+	}
+
+	.repetitors {
+		width: 333px;
+
+		.repetitor {
+			height: 89px;
+
+			.repetitor-photo {
+				width: 57px;
+				height: 57px;
+
+				img {
+					width: 57px;
+				}
+			}
+
+			.repetitor-name {
+				font-size: 14px;
+				line-height: 16.41px;
+
+				margin-bottom: 8px;
+			}
+
+			.repetitor-subject {
+				font-size: 16px;
+				line-height: 18.75px;
+			}
+
+			.repetitor-price {
+				font-size: 16px;
+				line-height: 18.75px;
+			}
+
+		}
+	}
+}

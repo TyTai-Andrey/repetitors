@@ -1,2 +1,13 @@
 
-export const TYPE = "TYPE"
+export const DELETE_DISTRICTS = "DELETE_DISTRICTS"
+export const DISTRICTS = "DISTRICTS"
+export const SUBJECTS = "SUBJECTS"
+export const AREAS = "AREAS"
+
+export const PRESET_DISTRICTS = "PRESET/DISTRICTS"
+export const PRESET_SUBJECTS = "PRESET/SUBJECTS"
+export const PRESET_AREAS = "PRESET/AREAS"
+
+export const DOWNLOAD_MORE = "DOWNLOAD_MORE"
+export const DOWNLOAD_ID = "DOWNLOAD_ID"
+export const DOWNLOAD = "DOWNLOAD"
