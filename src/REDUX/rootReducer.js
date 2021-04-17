@@ -5,6 +5,8 @@ import {
 	SUBJECTS, AREAS, DISTRICTS, DOWNLOAD_ID, DOWNLOAD, DOWNLOAD_MORE
 		} from './types'
 
+
+// Данные для select`ов
 const initialDataState = {
 	subjects: 'undefined',
 	areas: 'undefined',
@@ -26,6 +28,8 @@ function dataReducer (state = initialDataState, action) {
 	}
 }
 
+
+// Данные для запроса
 const initialPresetDataState = {
 	subject: 'default',
 	area: 'default',
@@ -45,6 +49,8 @@ function presetDataReducer (state = initialPresetDataState, action) {
 	}
 }
 
+
+// Массив с информацией о репетиторах для карточек и массив с ID репетиторов
 const initialDownloadState = {
 	repetitorsID: [],
 	repetitors: []
@@ -62,6 +68,8 @@ function downloadReducer (state = initialDownloadState, action) {
 			return state;
 	}
 }
+
+
 
 export const rootReducer = combineReducers ({
 	data: dataReducer,

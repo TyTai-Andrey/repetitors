@@ -2,16 +2,18 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 
 import {
-	download
+	download_More
 } from '../REDUX/actions.js';
 
 function Download () {
+
+
 	const data = useSelector(state => state)
 	const dispatch = useDispatch()
 
-
+	// загрузить ещё 10 карточек (или меньше)
 	function downloadMore () {
-		dispatch(download(data.download.repetitorsID))
+		dispatch(download_More(data.download.repetitorsID))
 	}
 
 	return (

@@ -13,6 +13,7 @@ function App() {
   		<Nav/>
   		<Repetitors/>
 
+      {/*Если карточек нет, то не показывать кнопку*/}
   		{
   			(state.download.repetitorsID.length !== 0) ?	<Download/> : null
   		}

@@ -12,8 +12,13 @@ import App from './App';
 const store = createStore(rootReducer, compose(
 	applyMiddleware(
 		thunk
-	), 
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	)
+
+
+	// Это расширение для хрома Redux DevTools
+
+	// , 
+	// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ))
 
 

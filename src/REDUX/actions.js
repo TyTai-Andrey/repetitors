@@ -14,6 +14,7 @@ import {
 // 	}
 // }
 
+// Запросить города
 export function fetchAreas () {
 	return async dispatch => {
 		const response = await fetch('https://api.repetit.ru/public/areas')
@@ -22,6 +23,7 @@ export function fetchAreas () {
 	}
 }
 
+// Запросить предметы
 export function fetchSubjects () {
 	return async dispatch => {
 		const response = await fetch('https://api.repetit.ru/public/subjects')
@@ -30,8 +32,8 @@ export function fetchSubjects () {
 	}
 }
 
-// https://api.repetit.ru/public/districts?areaId=1
 
+// Запросить районы
 export function fetchDistricts (areaId) {
 	return async dispatch => {
 		const response = await fetch(`https://api.repetit.ru/public/districts?areaId=${areaId}`)
@@ -42,35 +44,45 @@ export function fetchDistricts (areaId) {
 
 
 
+// Очистить массив с районами
 export function deleteDistrict () {
 	return {type: DELETE_DISTRICTS}
 }
 
+// Установить район для поиска
 export function setDistrict (district) {
 	return {type: PRESET_DISTRICTS, payload: district}
 }
 
+// Установить предмет для поиска
 export function setSubject (subject) {
 	return {type: PRESET_SUBJECTS, payload: subject}
 }
 
+// Установить город для поиска
 export function setArea (area) {
 	return {type: PRESET_AREAS, payload: area}
 }
 
+// Запросить ID преподавателей и вывести 10 (или меньше)
 export function downloadId (URL) {
 	return async dispatch => {
 		const response = await fetch(`https://api.repetit.ru/public/search/teacherIds?${URL}`)
 		let json = await response.json()
 
+		// Для запроса репетиторов по их ID
 		let PATH_repetitorsID = [];
 
+			// Если пришло 10 или меньше ID
 			if (json.length<=10) {
 
 				for (let i = 0; i <json.length; ++i) {
 					PATH_repetitorsID.push(`Ids[${i}]=${json[i]}`)
 				}	
+				dispatch({type: DOWNLOAD_ID, payload: []})
 
+
+			// Если пришло более 10 id
 			} else {
 
 				const repetitorsID_10 = json.splice(0, 10)
@@ -83,15 +95,22 @@ export function downloadId (URL) {
 
 			}
 
+
+		// Запросить информацию о 10 репетиторах (или меньше)
 		const response_2 = await fetch(`http://api.repetit.ru/public/teachers/short?${PATH_repetitorsID.join('&')}`)
 		let json_2 = await response_2.json()
 
+		// Сохнанить id репетиторов, кроме первых 10
 		dispatch({type: DOWNLOAD_ID, payload: json})
+
+		// Сохнанить 10 репетиторов (или меньше)
 		dispatch({type: DOWNLOAD, payload: json_2})
 	}
 }
 
-export function download (arrayID) {
+
+//Загрузить ещё карточек
+export function download_More (arrayID) {
 	return async dispatch => {
 		
 		let PATH_repetitorsID = [];
