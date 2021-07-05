@@ -1,4 +1,3 @@
-
 import {
 	PRESET_DISTRICTS,PRESET_SUBJECTS,PRESET_AREAS, DELETE_DISTRICTS,
 	SUBJECTS, AREAS, DISTRICTS, DOWNLOAD_ID, DOWNLOAD, DOWNLOAD_MORE
@@ -73,6 +72,7 @@ export function downloadId (URL) {
 		// Для запроса репетиторов по их ID
 		let PATH_repetitorsID = [];
 
+
 			// Если пришло 10 или меньше ID
 			if (json.length<=10) {
 
@@ -91,7 +91,8 @@ export function downloadId (URL) {
 					PATH_repetitorsID.push(`Ids[${i}]=${repetitorsID_10[i]}`)
 				}
 
-				
+				// Сохнанить id репетиторов, кроме первых 10
+				dispatch({type: DOWNLOAD_ID, payload: json})
 
 			}
 
@@ -100,8 +101,7 @@ export function downloadId (URL) {
 		const response_2 = await fetch(`http://api.repetit.ru/public/teachers/short?${PATH_repetitorsID.join('&')}`)
 		let json_2 = await response_2.json()
 
-		// Сохнанить id репетиторов, кроме первых 10
-		dispatch({type: DOWNLOAD_ID, payload: json})
+		
 
 		// Сохнанить 10 репетиторов (или меньше)
 		dispatch({type: DOWNLOAD, payload: json_2})
@@ -120,7 +120,7 @@ export function download_More (arrayID) {
 				for (let i = 0; i <arrayID.length; ++i) {
 					PATH_repetitorsID.push(`Ids[${i}]=${arrayID[i]}`)
 				}	
-
+				dispatch({type: DOWNLOAD_ID, payload: []})
 			} else {
 
 				const repetitorsID_10 = arrayID.splice(0, 10)
@@ -128,11 +128,8 @@ export function download_More (arrayID) {
 				for (let i = 0; i <repetitorsID_10.length; ++i) {
 					PATH_repetitorsID.push(`Ids[${i}]=${repetitorsID_10[i]}`)
 				}
-
-				
-
+				dispatch({type: DOWNLOAD_ID, payload: arrayID})
 			}
-
 		const response = await fetch(`http://api.repetit.ru/public/teachers/short?${PATH_repetitorsID.join('&')}`)
 		let json = await response.json()
 

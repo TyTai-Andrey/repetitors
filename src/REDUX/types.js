@@ -1,4 +1,3 @@
-
 export const DELETE_DISTRICTS = "DELETE_DISTRICTS"
 export const DISTRICTS = "DISTRICTS"
 export const SUBJECTS = "SUBJECTS"

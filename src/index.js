@@ -17,8 +17,8 @@ const store = createStore(rootReducer, compose(
 
 	// Это расширение для хрома Redux DevTools
 
-	// , 
-	// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	, 
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ))
 
 
