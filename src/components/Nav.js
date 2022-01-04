@@ -3,15 +3,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  // Запросить предметы
-  fetchSubjects,
-  // Запросить города
-  fetchAreas,
-  // Запросить районы
-  fetchDistricts,
-  // Запросить удалить массив с районами
-  deleteDistrict,
-
   // Установить массив районов для поиска
   setDistrict,
   // Установить массив предметов для поиска
@@ -22,6 +13,13 @@ import {
   // Запросить массив репетиторов и вывести первых 10 или менее
   downloadId,
 } from '../redux/actions.js';
+
+import {
+  deleteDistrict,
+  fetchAreas,
+  fetchSubjects,
+  fetchDistricts,
+} from '../redux/reduxCollection/secetData/selectDataReducer';
 
 function Nav() {
   const dispatch = useDispatch();

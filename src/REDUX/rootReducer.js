@@ -1,39 +1,13 @@
 import { combineReducers } from 'redux';
-
+import { selectDataReducer } from './reduxCollection/secetData/selectDataReducer';
 import {
   PRESET_DISTRICTS,
   PRESET_SUBJECTS,
   PRESET_AREAS,
-  DELETE_DISTRICTS,
-  SUBJECTS,
-  AREAS,
-  DISTRICTS,
   DOWNLOAD_ID,
   DOWNLOAD,
   DOWNLOAD_MORE,
 } from './types';
-
-// Данные для select`ов
-const initialDataState = {
-  subjects: 'undefined',
-  areas: 'undefined',
-  districts: 'undefined',
-};
-
-function dataReducer(state = initialDataState, action) {
-  switch (action.type) {
-    case SUBJECTS:
-      return { ...state, subjects: action.payload };
-    case AREAS:
-      return { ...state, areas: action.payload };
-    case DISTRICTS:
-      return { ...state, districts: action.payload };
-    case DELETE_DISTRICTS:
-      return { ...state, districts: 'undefined' };
-    default:
-      return state;
-  }
-}
 
 // Данные для запроса
 const initialPresetDataState = {
@@ -78,7 +52,7 @@ function downloadReducer(state = initialDownloadState, action) {
 }
 
 export const rootReducer = combineReducers({
-  data: dataReducer,
+  data: selectDataReducer,
   presetData: presetDataReducer,
   download: downloadReducer,
 });
