@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { download_More } from '../redux/actions.js';
+import { download_More } from '../redux/reduxCollection/repetitors/repetitorsReducer';
 
 function Download() {
   const data = useSelector((state) => state);

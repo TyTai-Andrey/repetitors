@@ -11,7 +11,6 @@ import {
   setArea,
 
   // Запросить массив репетиторов и вывести первых 10 или менее
-  downloadId,
 } from '../redux/actions.js';
 
 import {
@@ -20,6 +19,8 @@ import {
   fetchSubjects,
   fetchDistricts,
 } from '../redux/reduxCollection/secetData/selectDataReducer';
+
+import { downloadId } from '../redux/reduxCollection/repetitors/repetitorsReducer';
 
 function Nav() {
   const dispatch = useDispatch();
