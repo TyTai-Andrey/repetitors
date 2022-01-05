@@ -1,17 +1,28 @@
 type SelectDataReducerState = {
-    subjects: any;
-    areas: any;
-    districts: any;
+    subjects: string;
+    areas: string;
+    districts: string;
 }
 
 type RepetitorsReducerState = {
-    repetitorsID: any;
-    repetitors: any;
+    repetitorsID: any[];
+    repetitors: any[];
 }
 
 
 type DataForRequestReducerState = {
-    subject: any,
-    area: any,
-    district: any,
+    subject: string,
+    area: string,
+    district: string,
+    asd: boolean
+}
+
+type AppState = {
+    selectDataReducer: SelectDataReducerState,
+    repetitorsReducer: RepetitorsReducerState,
+    dataForRequestReducer: DataForRequestReducerState,
+
+    // data: SelectDataReducerState,
+    // presetData: DataForRequestReducerState,
+    // download: RepetitorsReducerState,
 }

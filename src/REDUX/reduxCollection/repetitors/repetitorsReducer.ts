@@ -37,13 +37,13 @@ const initialState: RepetitorsReducerState = {
     payload
   });
 
-  type addMoreRepetitorsAction = {
+  type AddMoreRepetitorsAction = {
     type: RepetitorsActionTypes.DOWNLOAD_MORE;
-    payload: any
+    payload: any[]
   };
   
   // Записать массив с предметами
-  export const addMoreRepetitors: ActionCreator<addMoreRepetitorsAction> = (payload: any) => ({
+  export const addMoreRepetitors: ActionCreator<AddMoreRepetitorsAction> = (payload: any[]) => ({
     type: RepetitorsActionTypes.DOWNLOAD_MORE,
     payload
   });
@@ -121,9 +121,25 @@ export function downloadId(URL: string | number) {
   type RepetitorsActions =
   | SetRepetitorsAction
   | SetRepetitorsIdAction
-  | addMoreRepetitorsAction;
+  | AddMoreRepetitorsAction;
 
-  export const repetitorsReducer: Reducer<RepetitorsReducerState, RepetitorsActions> = 
+
+
+
+//   Без понятия почему, но выбивает с ошибку с этим редюсером и с dataForRequestReducer
+
+//   No overload matches this call.
+//   Overload 1 of 3, '(reducers: ReducersMapObject<AppState, any>): Reducer<CombinedState<AppState>, AnyAction>', gave the following error.
+//     Type 'Reducer<RepetitorsReducerState, RepetitorsActions>' is not assignable to type 'Reducer<RepetitorsReducerState, any>'.
+//       Types of parameters 'prevState' and 'state' are incompatible.
+//         Type 'RepetitorsReducerState | undefined' is not assignable to type 'RepetitorsReducerState'.
+//           Type 'undefined' is not assignable to type 'RepetitorsReducerState'.
+
+//   selectDataReducer прекрасно работает и без этого any и раньше писал и всё было хорошо. Может не вижу чего-то....но вроде всё правильно.... 
+
+//   ну, всё правильно, кроме этого any
+
+  export const repetitorsReducer: Reducer<RepetitorsReducerState | any, RepetitorsActions> = 
   (state = initialState, action
     ) => {
     switch (action.type) {

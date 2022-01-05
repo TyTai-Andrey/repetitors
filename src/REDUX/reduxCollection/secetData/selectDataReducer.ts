@@ -8,7 +8,7 @@ enum SelectDataActionTypes {
 }
 
 // Данные для select`ов
-const initialDataState = {
+const initialState: SelectDataReducerState = {
   subjects: 'undefined',
   areas: 'undefined',
   districts: 'undefined',
@@ -94,7 +94,7 @@ type SelectDataActions =
 
 
 export const selectDataReducer: Reducer<SelectDataReducerState, SelectDataActions> = 
-(state = initialDataState, action
+(state = initialState, action
   ) => {
   switch (action.type) {
     case SelectDataActionTypes.SUBJECTS:

@@ -48,9 +48,9 @@ function Nav() {
   }
 
   async function showRepetitors() {
-    const subject = data.presetData.subject;
-    const area = data.presetData.area;
-    const district = data.presetData.district;
+    const subject = data.dataForRequestReducer.subject;
+    const area = data.dataForRequestReducer.area;
+    const district = data.dataForRequestReducer.district;
 
     let PATH_downloadId = [];
 
@@ -88,8 +88,8 @@ function Nav() {
           <option value="default">Укажите предмет</option>
 
           {/*Если в массиве с предметами что-то есть, то показать предметы*/}
-          {data.data.subjects !== 'undefined'
-            ? data.data.subjects.map((i) => {
+          {data.selectDataReducer.subjects !== 'undefined'
+            ? data.selectDataReducer.subjects.map((i) => {
                 return (
                   <option value={i.id} key={i.id}>
                     {i.name}
@@ -107,8 +107,8 @@ function Nav() {
           <option value="default">Укажите город</option>
 
           {/*Если в массиве с городами что-то есть, то показать города*/}
-          {data.data.areas !== 'undefined'
-            ? data.data.areas.map((i) => {
+          {data.selectDataReducer.areas !== 'undefined'
+            ? data.selectDataReducer.areas.map((i) => {
                 return (
                   <option value={i.id} key={i.id}>
                     {i.cityName}
@@ -125,8 +125,8 @@ function Nav() {
         >
           <option value="default">Укажите район</option>
           {/*Если в массиве с районами что-то есть, то показать район*/}
-          {data.data.districts !== 'undefined'
-            ? data.data.districts.map((i) => {
+          {data.selectDataReducer.districts !== 'undefined'
+            ? data.selectDataReducer.districts.map((i) => {
                 return (
                   <option value={i.id} key={i.id}>
                     {i.name}

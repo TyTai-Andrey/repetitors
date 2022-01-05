@@ -9,7 +9,7 @@ function Download() {
 
   // загрузить ещё 10 карточек (или меньше)
   function downloadMore() {
-    dispatch(download_More(data.download.repetitorsID));
+    dispatch(download_More(data.repetitorsReducer.repetitorsID));
   }
 
   return (
