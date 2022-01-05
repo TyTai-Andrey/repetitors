@@ -3,15 +3,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  // Установить массив районов для поиска
   setDistrict,
-  // Установить массив предметов для поиска
   setSubject,
-  // Установить массив городов для поиска
   setArea,
-
-  // Запросить массив репетиторов и вывести первых 10 или менее
-} from '../redux/actions.js';
+} from '../redux/reduxCollection/dataForRequest/dataForRequestReducer';
 
 import {
   deleteDistrict,
