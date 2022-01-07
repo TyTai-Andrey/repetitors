@@ -1,12 +1,13 @@
 type SelectDataReducerState = {
-    subjects: ISubjects[] | null;
+    subjects: ISubject[] | null;
     areas: IArea[] | null;
     districts: IDistricts[] | null;
+    currentSubject: string | null;
 }
 
 type RepetitorsReducerState = {
-    repetitorsID: any[];
-    repetitors: any[];
+    repetitorsID: number[];
+    repetitors: IRepetitor[];
 }
 
 type DataForRequestReducerState = {

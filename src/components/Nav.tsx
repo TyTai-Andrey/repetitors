@@ -99,7 +99,7 @@ const Nav = () => {
         >
           <option value="default">Укажите предмет</option>
           {/*Если в массиве с предметами что-то есть, то показать предметы*/}
-          {subjects?.map((i: ISubjects) => {
+          {subjects?.map((i: ISubject) => {
             return (
               <option value={i.id} key={i.id}>
                 {i.name}

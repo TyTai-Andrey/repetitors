@@ -8,6 +8,7 @@ enum SelectDataActionTypes {
   DISTRICTS = "selectData/DISTRICTS",
   SUBJECTS = "selectData/SUBJECTS",
   AREAS = "selectData/AREAS",
+  CHANGE_CURRENT_SUBJECT = "selectData/CHANGE_CURRENT_SUBJECT",
 }
 
 // Данные для select`ов
@@ -15,15 +16,16 @@ const initialState: SelectDataReducerState = {
   subjects: null,
   areas: null,
   districts: null,
+  currentSubject: null,
 };
 
 type SetDistrictsAction = {
   type: SelectDataActionTypes.DISTRICTS;
-  payload: any
+  payload: IDistricts[] | null
 };
 
 // Записать массив с районами
-export const setDistricts: ActionCreator<SetDistrictsAction> = (payload: any) => ({
+export const setDistricts: ActionCreator<SetDistrictsAction> = (payload: IDistricts[] | null) => ({
   type: SelectDataActionTypes.DISTRICTS,
   payload
 });
@@ -38,11 +40,11 @@ export const fetchDistricts = (areaId: string | number) => async (dispatch: AppD
 
 type SetSubjectsAction = {
   type: SelectDataActionTypes.SUBJECTS;
-  payload: any
+  payload: ISubject[] | null
 };
 
 // Записать массив с предметами
-export const setSubjects: ActionCreator<SetSubjectsAction> = (payload: any) => ({
+export const setSubjects: ActionCreator<SetSubjectsAction> = (payload: ISubject[] | null) => ({
   type: SelectDataActionTypes.SUBJECTS,
   payload
 });
@@ -55,14 +57,13 @@ export const fetchSubjects = () => async (dispatch: AppDispatch) => {
   }
 };
 
-
 type SetAreasAction = {
   type: SelectDataActionTypes.AREAS;
-  payload: any
+  payload: IArea[] | null
 };
 
 // Записать массив с предметами
-export const setAreas: ActionCreator<SetAreasAction> = (payload: any) => ({
+export const setAreas: ActionCreator<SetAreasAction> = (payload: IArea[] | null) => ({
   type: SelectDataActionTypes.AREAS,
   payload
 });
@@ -84,12 +85,23 @@ export const deleteDistrict: ActionCreator<DeleteDistrictAction> = () => ({
   type: SelectDataActionTypes.DELETE_DISTRICTS,
 });
 
+type ChangeCurrentSubjectAction = {
+  type: SelectDataActionTypes.CHANGE_CURRENT_SUBJECT;
+  payload: string | null
+};
+
+// Записать массив с районами
+export const changeCurrentSubject: ActionCreator<ChangeCurrentSubjectAction> = (payload: string | null) => ({
+  type: SelectDataActionTypes.CHANGE_CURRENT_SUBJECT,
+  payload
+});
+
 type SelectDataActions =
   | DeleteDistrictAction
   | SetDistrictsAction
   | SetSubjectsAction
-  | SetAreasAction;
-
+  | SetAreasAction
+  | ChangeCurrentSubjectAction;
 
 export const selectDataReducer: Reducer<SelectDataReducerState, SelectDataActions> = 
 (state = initialState, action
@@ -103,6 +115,9 @@ export const selectDataReducer: Reducer<SelectDataReducerState, SelectDataAction
       return { ...state, districts: action.payload };
     case SelectDataActionTypes.DELETE_DISTRICTS:
       return { ...state, districts: null };
+    case SelectDataActionTypes.CHANGE_CURRENT_SUBJECT: {
+      return { ...state, currentSubject: action.payload };
+    }
     default:
       return state;
   }
