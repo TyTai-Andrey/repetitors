@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { download_More } from '../redux/reduxCollection/repetitors/repetitorsReducer';
 
-function Download() {
-  const data = useSelector((state) => state);
+const Download = () => {
+  const { repetitorsID } = useSelector(
+    (state: AppState) => state.repetitorsReducer
+  );
   const dispatch = useDispatch();
 
   // загрузить ещё 10 карточек (или меньше)
-  function downloadMore() {
-    dispatch(download_More(data.repetitorsReducer.repetitorsID));
-  }
+  const downloadMore = () => {
+    dispatch(download_More(repetitorsID));
+  };
 
   return (
     <div className="swapper">
@@ -22,6 +24,6 @@ function Download() {
       </button>
     </div>
   );
-}
+};
 
 export default Download;

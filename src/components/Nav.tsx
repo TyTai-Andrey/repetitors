@@ -17,53 +17,61 @@ import {
 
 import { downloadId } from '../redux/reduxCollection/repetitors/repetitorsReducer';
 
-function Nav() {
+const Nav = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state);
+  const { dataForRequestReducer, selectDataReducer } = useSelector(
+    (state: AppState) => state
+  );
+  const { subjects, areas, districts } = selectDataReducer;
 
   // Запросить предметы и города
   useEffect(() => {
-    dispatch(fetchSubjects());
-    dispatch(fetchAreas());
+    if (!subjects) {
+      dispatch(fetchSubjects());
+    }
+    if (!areas) {
+      dispatch(fetchAreas());
+    }
   }, []);
 
   // Обрабатывается выбор города
-  function changeAreas(event) {
+  const changeAreas = (event: React.ChangeEvent<HTMLSelectElement>) => {
     // Устанавлевает город для поиска
-    dispatch(setArea(event.target.value));
+    const value = event.target.value === 'default' ? null : event.target.value;
+    dispatch(setArea(value));
 
     // Если ничего не выбрано
-    if (event.target.value === 'default') {
+    if (!value) {
       // Убрать район из поиска
-      dispatch(setDistrict('default'));
+      dispatch(setDistrict(null));
       // Очистить массив районов
       dispatch(deleteDistrict());
       return false;
     }
 
     // Если выбран город, то запросить районы для него
-    dispatch(fetchDistricts(event.target.value));
+    dispatch(fetchDistricts(value));
     // Убрать район из поиска
-    dispatch(setDistrict('default'));
-  }
+    dispatch(setDistrict(null));
+  };
 
-  async function showRepetitors() {
-    const subject = data.dataForRequestReducer.subject;
-    const area = data.dataForRequestReducer.area;
-    const district = data.dataForRequestReducer.district;
+  const showRepetitors = async () => {
+    const subject = dataForRequestReducer.subject;
+    const area = dataForRequestReducer.area;
+    const district = dataForRequestReducer.district;
 
     let PATH_downloadId = [];
 
     // Если предмет для поиска выбран, то добавить его в строку запроса
-    if (subject !== 'default') {
+    if (subject) {
       PATH_downloadId.push(`subjectId=${subject}`);
     }
     // Если город для поиска выбран, то добавить его в строку запроса
-    if (area !== 'default') {
+    if (area) {
       PATH_downloadId.push(`areaId=${area}`);
     }
     // Если район для поиска выбран, то добавить его в строку запроса
-    if (district !== 'default') {
+    if (district) {
       PATH_downloadId.push(`districtId=${district}`);
     }
 
@@ -74,7 +82,7 @@ function Nav() {
       // Запросить массив с id преподавателей и вывести первых 10 (или меньше, если нет 10)
       await dispatch(downloadId(PATH_downloadId.join('&')));
     }
-  }
+  };
 
   return (
     <div className="swapper">
@@ -83,57 +91,57 @@ function Nav() {
           name="subjects"
           id="subjects"
           className="select theme-white font_btn"
-          onChange={(event) => dispatch(setSubject(event.target.value))}
+          onChange={(event) => {
+            const value =
+              event.target.value === 'default' ? null : event.target.value;
+            dispatch(setSubject(value));
+          }}
         >
           <option value="default">Укажите предмет</option>
-
           {/*Если в массиве с предметами что-то есть, то показать предметы*/}
-          {data.selectDataReducer.subjects !== 'undefined'
-            ? data.selectDataReducer.subjects.map((i) => {
-                return (
-                  <option value={i.id} key={i.id}>
-                    {i.name}
-                  </option>
-                );
-              })
-            : null}
+          {subjects?.map((i: ISubjects) => {
+            return (
+              <option value={i.id} key={i.id}>
+                {i.name}
+              </option>
+            );
+          })}
         </select>
         <select
           name="areas"
           id="areas"
           className="select theme-white font_btn"
-          onChange={(event) => changeAreas(event)}
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+            changeAreas(event)
+          }
         >
           <option value="default">Укажите город</option>
-
           {/*Если в массиве с городами что-то есть, то показать города*/}
-          {data.selectDataReducer.areas !== 'undefined'
-            ? data.selectDataReducer.areas.map((i) => {
-                return (
-                  <option value={i.id} key={i.id}>
-                    {i.cityName}
-                  </option>
-                );
-              })
-            : null}
+          {areas?.map((i: IArea) => {
+            return (
+              <option value={i.id} key={i.id}>
+                {i.cityName}
+              </option>
+            );
+          })}
         </select>
         <select
           name="districts"
           id="districts"
           className="select theme-white font_btn"
-          onChange={(event) => dispatch(setDistrict(event.target.value))}
+          onChange={(event) => {
+            const value =
+              event.target.value === 'default' ? null : event.target.value;
+            dispatch(setDistrict(value));
+          }}
         >
           <option value="default">Укажите район</option>
           {/*Если в массиве с районами что-то есть, то показать район*/}
-          {data.selectDataReducer.districts !== 'undefined'
-            ? data.selectDataReducer.districts.map((i) => {
-                return (
-                  <option value={i.id} key={i.id}>
-                    {i.name}
-                  </option>
-                );
-              })
-            : null}
+          {districts?.map((i: IDistricts) => (
+            <option value={i.id} key={i.id}>
+              {i.name}
+            </option>
+          ))}
         </select>
 
         <button
@@ -145,6 +153,6 @@ function Nav() {
       </div>
     </div>
   );
-}
+};
 
 export default Nav;

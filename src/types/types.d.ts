@@ -1,7 +1,7 @@
 type SelectDataReducerState = {
-    subjects: string;
-    areas: string;
-    districts: string;
+    subjects: ISubjects[] | null;
+    areas: IArea[] | null;
+    districts: IDistricts[] | null;
 }
 
 type RepetitorsReducerState = {
@@ -9,20 +9,14 @@ type RepetitorsReducerState = {
     repetitors: any[];
 }
 
-
 type DataForRequestReducerState = {
-    subject: string,
-    area: string,
-    district: string,
-    asd: boolean
+    subject: string | null;
+    area: string | null;
+    district: string | null;
 }
 
 type AppState = {
     selectDataReducer: SelectDataReducerState,
     repetitorsReducer: RepetitorsReducerState,
     dataForRequestReducer: DataForRequestReducerState,
-
-    // data: SelectDataReducerState,
-    // presetData: DataForRequestReducerState,
-    // download: RepetitorsReducerState,
 }

@@ -12,10 +12,9 @@ enum DataForRequestActionTypes {
 
 // Данные для запроса
 const initialState: DataForRequestReducerState = {
-    subject: 'default',
-    area: 'default',
-    district: 'default',
-    asd: true
+    subject: null,
+    area: null,
+    district: null,
   };
 
   type SetDistrictAction = {

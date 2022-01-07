@@ -12,9 +12,9 @@ enum SelectDataActionTypes {
 
 // Данные для select`ов
 const initialState: SelectDataReducerState = {
-  subjects: 'undefined',
-  areas: 'undefined',
-  districts: 'undefined',
+  subjects: null,
+  areas: null,
+  districts: null,
 };
 
 type SetDistrictsAction = {
@@ -102,7 +102,7 @@ export const selectDataReducer: Reducer<SelectDataReducerState, SelectDataAction
     case SelectDataActionTypes.DISTRICTS:
       return { ...state, districts: action.payload };
     case SelectDataActionTypes.DELETE_DISTRICTS:
-      return { ...state, districts: 'undefined' };
+      return { ...state, districts: null };
     default:
       return state;
   }
