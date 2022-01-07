@@ -1,4 +1,7 @@
 import { ActionCreator, Reducer } from 'redux';
+import getDistricts from '../../../services/getDistricts';
+import getEntities from '../../../services/getEntities';
+import { AppDispatch } from '../../rootReducer';
 
 enum SelectDataActionTypes {
   DELETE_DISTRICTS = "selectData/DELETE_DISTRICTS",
@@ -26,15 +29,12 @@ export const setDistricts: ActionCreator<SetDistrictsAction> = (payload: any) =>
 });
 
 // Запросить районы
-export function fetchDistricts(areaId: string | number) {
-  return async (dispatch: any) => {
-    const response = await fetch(
-      `https://api.repetit.ru/public/districts?areaId=${areaId}`
-    );
-    const json = await response.json();
-    dispatch(setDistricts(json))
-  };
-}
+export const fetchDistricts = (areaId: string | number) => async (dispatch: AppDispatch) => {
+  const districts = await getDistricts(areaId);
+  if (districts) {
+    dispatch(setDistricts(districts))
+  }
+};
 
 type SetSubjectsAction = {
   type: SelectDataActionTypes.SUBJECTS;
@@ -48,13 +48,12 @@ export const setSubjects: ActionCreator<SetSubjectsAction> = (payload: any) => (
 });
 
 // Запросить предметы
-export function fetchSubjects() {
-  return async (dispatch: any) => {
-    const response = await fetch('https://api.repetit.ru/public/subjects');
-    const json = await response.json();
-    dispatch(setSubjects(json));
-  };
-}
+export const fetchSubjects = () => async (dispatch: AppDispatch) => {
+  const subjects = await getEntities('subjects');
+  if (subjects) {
+    dispatch(setSubjects(subjects));
+  }
+};
 
 
 type SetAreasAction = {
@@ -69,13 +68,12 @@ export const setAreas: ActionCreator<SetAreasAction> = (payload: any) => ({
 });
 
 // Запросить города
-export function fetchAreas() {
-  return async (dispatch: any) => {
-    const response = await fetch('https://api.repetit.ru/public/areas');
-    const json = await response.json();
-    dispatch(setAreas(json));
-  };
-}
+export const fetchAreas = () => async (dispatch: AppDispatch) => {
+  const areas = await getEntities('areas');
+  if (areas) {
+    dispatch(setAreas(areas));
+  }
+};
 
 type DeleteDistrictAction = {
   type: SelectDataActionTypes.DELETE_DISTRICTS;

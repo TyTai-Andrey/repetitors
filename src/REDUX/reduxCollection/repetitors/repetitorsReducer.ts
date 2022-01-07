@@ -1,5 +1,8 @@
 import { Reducer } from 'react';
 import { ActionCreator } from 'redux';
+import getCardTeachers from '../../../services/getCardTeachers';
+import getTeacherIds from '../../../services/getTeacherIds';
+import { AppDispatch } from '../../rootReducer';
 
 
 enum RepetitorsActionTypes {
@@ -49,51 +52,42 @@ const initialState: RepetitorsReducerState = {
   });
 
   // Запросить ID преподавателей и вывести 10 (или меньше)
-export function downloadId(URL: string | number) {
-    return async (dispatch: any) => {
-      const response = await fetch(
-        `https://api.repetit.ru/public/search/teacherIds?${URL}`
-      );
-      let json = await response.json();
-  
-      // Для запроса репетиторов по их ID
-      let PATH_repetitorsID = [];
-  
-      // Если пришло 10 или меньше ID
-      if (json.length <= 10) {
-        for (let i = 0; i < json.length; ++i) {
-          PATH_repetitorsID.push(`Ids[${i}]=${json[i]}`);
-        }
-        dispatch(setRepetitorsId([]))
-        // Если пришло более 10 id
-      } else {
-        const repetitorsID_10 = json.splice(0, 10);
-  
-        for (let i = 0; i < repetitorsID_10.length; ++i) {
-          PATH_repetitorsID.push(`Ids[${i}]=${repetitorsID_10[i]}`);
-        }
-  
-        // Сохнанить id репетиторов, кроме первых 10
-        dispatch(setRepetitorsId(json))
+export const downloadId = (URL: string | number) => async (dispatch: AppDispatch) => {
+  const teacherIds = await getTeacherIds(URL);
+  if (teacherIds) {
+    // Для запроса репетиторов по их ID
+    let PATH_repetitorsID = [];
+
+    // Если пришло 10 или меньше ID
+    if (teacherIds.length <= 10) {
+      for (let i = 0; i < teacherIds.length; ++i) {
+        PATH_repetitorsID.push(`Ids[${i}]=${teacherIds[i]}`);
       }
-  
-      // Запросить информацию о 10 репетиторах (или меньше)
-      const response_2 = await fetch(
-        `http://api.repetit.ru/public/teachers/short?${PATH_repetitorsID.join(
-          '&'
-        )}`
-      );
-      let json_2 = await response_2.json();
-  
-      // Сохнанить 10 репетиторов (или меньше)
-      dispatch(setRepetitors(json_2))
-    };
+      dispatch(setRepetitorsId([]))
+      // Если пришло более 10 id
+    } else {
+      const repetitorsID_10 = teacherIds.splice(0, 10);
+
+      for (let i = 0; i < repetitorsID_10.length; ++i) {
+        PATH_repetitorsID.push(`Ids[${i}]=${repetitorsID_10[i]}`);
+      }
+
+      // Сохнанить id репетиторов, кроме первых 10
+      dispatch(setRepetitorsId(teacherIds))
+    }
+
+    // Запросить информацию о 10 репетиторах (или меньше)
+    const cardsTeachers = await getCardTeachers(PATH_repetitorsID);
+    if (cardsTeachers) {
+    // Сохнанить 10 репетиторов (или меньше)
+      dispatch(setRepetitors(cardsTeachers))
+    }
   }
+}
   
   //Загрузить ещё карточек
-  export function download_More(arrayID: any) {
-    return async (dispatch: any) => {
-      let PATH_repetitorsID = [];
+  export const download_More = (arrayID: any) => async (dispatch: AppDispatch) => {
+    let PATH_repetitorsID = [];
   
       if (arrayID.length <= 10) {
         for (let i = 0; i < arrayID.length; ++i) {
@@ -108,15 +102,11 @@ export function downloadId(URL: string | number) {
         }
         dispatch(setRepetitorsId(arrayID))
       }
-      const response = await fetch(
-        `http://api.repetit.ru/public/teachers/short?${PATH_repetitorsID.join(
-          '&'
-        )}`
-      );
-      let json = await response.json();
-        dispatch(addMoreRepetitors(json))
-    };
-  }
+      const cardsTeachers = await getCardTeachers(PATH_repetitorsID);
+      if (cardsTeachers) {
+          dispatch(addMoreRepetitors(cardsTeachers))
+      }
+  };
 
   type RepetitorsActions =
   | SetRepetitorsAction
