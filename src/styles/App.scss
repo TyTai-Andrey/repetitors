@@ -33,11 +33,13 @@ body {
 .select {
   background-image: url('svg/svg-arrow-down.svg');
   background-repeat: no-repeat, repeat;
-  background-position: right 18px top 18px, 0 0;
+  background-position: right 0.6em top 18px, 0 0;
   background-size: 0.65em auto, 100%;
   padding-left: 14px;
   width: 277px;
   height: 45px;
+
+  margin-right: 10px;
 }
 
 .theme-white {
@@ -85,7 +87,8 @@ body {
 }
 
 .repetitors {
-  width: 850px;
+  max-width: 850px;
+  width: 100%;
   margin: 44px auto 0;
 }
 
@@ -131,12 +134,24 @@ body {
     font-size: 18px;
     line-height: 21.09px;
     margin-bottom: 8px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    max-width: 80%;
   }
 
   &-subject {
     font-weight: 700;
     font-size: 20px;
     line-height: 23.44px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    max-width: 80%;
   }
 
   &-price {
@@ -148,7 +163,8 @@ body {
 }
 
 .download {
-  width: 336px;
+  max-width: 336px;
+  width: 100%;
   height: 45px;
 
   display: block;
