@@ -8,6 +8,10 @@ const Repetitors = () => {
     (state: AppState) => state.repetitorsReducer
   );
 
+  const { currentSubject } = useSelector(
+    (state: AppState) => state.selectDataReducer
+  );
+
   return (
     <div className="swapper">
       <div className="repetitors">
@@ -15,13 +19,17 @@ const Repetitors = () => {
           return (
             <div className="repetitor" key={i.id}>
               <div className="repetitor-photo">
-                <img src={i.photoPath} alt="" />
+                <img src={i.photoPathSquare} alt="" />
               </div>
               <div className="repetitor-text">
                 <div className="repetitor-name">
                   {i.firstName + ' ' + i.patrName}
                 </div>
-                <div className="repetitor-subject">Математика</div>
+                <div className="repetitor-subject">
+                  {currentSubject
+                    ? currentSubject.name
+                    : i.teachingSubjects[0].subject.name}
+                </div>
                 <div className="repetitor-price">от {i.minPricePerHour} р</div>
               </div>
             </div>

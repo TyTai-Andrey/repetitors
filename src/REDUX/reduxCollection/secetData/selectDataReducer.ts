@@ -4,11 +4,11 @@ import getEntities from '../../../services/getEntities';
 import { AppDispatch } from '../../rootReducer';
 
 enum SelectDataActionTypes {
-  DELETE_DISTRICTS = "selectData/DELETE_DISTRICTS",
-  DISTRICTS = "selectData/DISTRICTS",
-  SUBJECTS = "selectData/SUBJECTS",
-  AREAS = "selectData/AREAS",
-  CHANGE_CURRENT_SUBJECT = "selectData/CHANGE_CURRENT_SUBJECT",
+  DELETE_DISTRICTS = 'selectData/DELETE_DISTRICTS',
+  DISTRICTS = 'selectData/DISTRICTS',
+  SUBJECTS = 'selectData/SUBJECTS',
+  AREAS = 'selectData/AREAS',
+  CHANGE_CURRENT_SUBJECT = 'selectData/CHANGE_CURRENT_SUBJECT',
 }
 
 // Данные для select`ов
@@ -21,32 +21,37 @@ const initialState: SelectDataReducerState = {
 
 type SetDistrictsAction = {
   type: SelectDataActionTypes.DISTRICTS;
-  payload: IDistricts[] | null
+  payload: IDistricts[] | null;
 };
 
 // Записать массив с районами
-export const setDistricts: ActionCreator<SetDistrictsAction> = (payload: IDistricts[] | null) => ({
+export const setDistricts: ActionCreator<SetDistrictsAction> = (
+  payload: IDistricts[] | null
+) => ({
   type: SelectDataActionTypes.DISTRICTS,
-  payload
+  payload,
 });
 
 // Запросить районы
-export const fetchDistricts = (areaId: string | number) => async (dispatch: AppDispatch) => {
-  const districts = await getDistricts(areaId);
-  if (districts) {
-    dispatch(setDistricts(districts))
-  }
-};
+export const fetchDistricts =
+  (areaId: string | number) => async (dispatch: AppDispatch) => {
+    const districts = await getDistricts(areaId);
+    if (districts) {
+      dispatch(setDistricts(districts));
+    }
+  };
 
 type SetSubjectsAction = {
   type: SelectDataActionTypes.SUBJECTS;
-  payload: ISubject[] | null
+  payload: ISubject[] | null;
 };
 
 // Записать массив с предметами
-export const setSubjects: ActionCreator<SetSubjectsAction> = (payload: ISubject[] | null) => ({
+export const setSubjects: ActionCreator<SetSubjectsAction> = (
+  payload: ISubject[] | null
+) => ({
   type: SelectDataActionTypes.SUBJECTS,
-  payload
+  payload,
 });
 
 // Запросить предметы
@@ -59,13 +64,15 @@ export const fetchSubjects = () => async (dispatch: AppDispatch) => {
 
 type SetAreasAction = {
   type: SelectDataActionTypes.AREAS;
-  payload: IArea[] | null
+  payload: IArea[] | null;
 };
 
 // Записать массив с предметами
-export const setAreas: ActionCreator<SetAreasAction> = (payload: IArea[] | null) => ({
+export const setAreas: ActionCreator<SetAreasAction> = (
+  payload: IArea[] | null
+) => ({
   type: SelectDataActionTypes.AREAS,
-  payload
+  payload,
 });
 
 // Запросить города
@@ -87,13 +94,15 @@ export const deleteDistrict: ActionCreator<DeleteDistrictAction> = () => ({
 
 type ChangeCurrentSubjectAction = {
   type: SelectDataActionTypes.CHANGE_CURRENT_SUBJECT;
-  payload: string | null
+  payload: ISubject | null;
 };
 
 // Записать массив с районами
-export const changeCurrentSubject: ActionCreator<ChangeCurrentSubjectAction> = (payload: string | null) => ({
+export const changeCurrentSubject: ActionCreator<ChangeCurrentSubjectAction> = (
+  payload: ISubject | null
+) => ({
   type: SelectDataActionTypes.CHANGE_CURRENT_SUBJECT,
-  payload
+  payload,
 });
 
 type SelectDataActions =
@@ -103,9 +112,10 @@ type SelectDataActions =
   | SetAreasAction
   | ChangeCurrentSubjectAction;
 
-export const selectDataReducer: Reducer<SelectDataReducerState, SelectDataActions> = 
-(state = initialState, action
-  ) => {
+export const selectDataReducer: Reducer<
+  SelectDataReducerState,
+  SelectDataActions
+> = (state = initialState, action) => {
   switch (action.type) {
     case SelectDataActionTypes.SUBJECTS:
       return { ...state, subjects: action.payload };
@@ -121,4 +131,4 @@ export const selectDataReducer: Reducer<SelectDataReducerState, SelectDataAction
     default:
       return state;
   }
-}
+};

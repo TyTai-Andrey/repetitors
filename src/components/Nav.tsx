@@ -13,9 +13,14 @@ import {
   fetchAreas,
   fetchSubjects,
   fetchDistricts,
+  changeCurrentSubject,
 } from '../redux/reduxCollection/secetData/selectDataReducer';
 
-import { downloadId } from '../redux/reduxCollection/repetitors/repetitorsReducer';
+import {
+  downloadId,
+  setRepetitors,
+  setRepetitorsId,
+} from '../redux/reduxCollection/repetitors/repetitorsReducer';
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -32,6 +37,7 @@ const Nav = () => {
     if (!areas) {
       dispatch(fetchAreas());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Обрабатывается выбор города
@@ -65,6 +71,9 @@ const Nav = () => {
     // Если предмет для поиска выбран, то добавить его в строку запроса
     if (subject) {
       PATH_downloadId.push(`subjectId=${subject}`);
+      dispatch(changeCurrentSubject(subjects?.[Number(subject) - 1]));
+    } else {
+      dispatch(changeCurrentSubject(null));
     }
     // Если город для поиска выбран, то добавить его в строку запроса
     if (area) {
@@ -77,6 +86,8 @@ const Nav = () => {
 
     // Если строка запроса равна 0, то ничего не делать
     if (PATH_downloadId.length === 0) {
+      dispatch(setRepetitors([]));
+      dispatch(setRepetitorsId([]));
       return;
     } else {
       // Запросить массив с id преподавателей и вывести первых 10 (или меньше, если нет 10)

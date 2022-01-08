@@ -21,10 +21,13 @@ body {
 }
 
 .selects_group {
-  width: 1073px;
+  max-width: 1073px;
+  width: 100%;
   margin-top: 41px;
   display: flex;
   justify-content: space-between;
+
+  flex-wrap: wrap;
 }
 
 .select {
@@ -99,7 +102,6 @@ body {
   margin-bottom: 20px;
 
   &-photo {
-    background: #dad;
     border-radius: 50%;
     width: 78px;
     height: 78px;
@@ -108,6 +110,15 @@ body {
     margin-right: 16px;
 
     overflow: hidden;
+
+    & img {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+    }
   }
 
   &-text {

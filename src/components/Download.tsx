@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { download_More } from '../redux/reduxCollection/repetitors/repetitorsReducer';
+import { getMoreRepetitors } from '../redux/reduxCollection/repetitors/repetitorsReducer';
 
 const Download = () => {
   const { repetitorsID } = useSelector(
@@ -11,7 +11,7 @@ const Download = () => {
 
   // загрузить ещё 10 карточек (или меньше)
   const downloadMore = () => {
-    dispatch(download_More(repetitorsID));
+    dispatch(getMoreRepetitors(repetitorsID));
   };
 
   return (
