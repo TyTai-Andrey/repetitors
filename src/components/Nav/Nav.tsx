@@ -6,7 +6,7 @@ import {
   setDistrict,
   setSubject,
   setArea,
-} from '../redux/reduxCollection/dataForRequest/dataForRequestReducer';
+} from '../../redux/reduxCollection/dataForRequest/dataForRequestReducer';
 
 import {
   deleteDistrict,
@@ -14,15 +14,15 @@ import {
   fetchSubjects,
   fetchDistricts,
   changeCurrentSubject,
-} from '../redux/reduxCollection/secetData/selectDataReducer';
+} from '../../redux/reduxCollection/secetData/selectDataReducer';
 
 import {
   downloadId,
   setRepetitors,
   setRepetitorsId,
-} from '../redux/reduxCollection/repetitors/repetitorsReducer';
+} from '../../redux/reduxCollection/repetitors/repetitorsReducer';
 
-const Nav = () => {
+export const Nav = () => {
   const dispatch = useDispatch();
   const { dataForRequestReducer, selectDataReducer } = useSelector(
     (state: AppState) => state
@@ -165,5 +165,3 @@ const Nav = () => {
     </div>
   );
 };
-
-export default Nav;

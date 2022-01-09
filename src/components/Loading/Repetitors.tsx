@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useSelector } from 'react-redux';
 
-const Repetitors = () => {
+export const Repetitors = () => {
   // Массив с репетиторами
   const { repetitors } = useSelector(
     (state: AppState) => state.repetitorsReducer
@@ -39,5 +39,3 @@ const Repetitors = () => {
     </div>
   );
 };
-
-export default Repetitors;

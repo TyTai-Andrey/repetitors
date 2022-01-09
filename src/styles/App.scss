@@ -1,17 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: $bg;
-}
+@import './config';
 
 .swapper {
   width: 100%;
@@ -139,7 +126,7 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    max-width: 80%;
+    max-width: 70%;
   }
 
   &-subject {
@@ -151,7 +138,7 @@ body {
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    max-width: 80%;
+    max-width: 70%;
   }
 
   &-price {
@@ -170,7 +157,6 @@ body {
   display: block;
 
   margin: 107px auto 40px;
-  // margin: 457px auto 40px;
 
   &:active {
     background: $mainColor;
@@ -218,3 +204,5 @@ body {
     transform: rotate(360deg);
   }
 }
+
+@import './media';

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import Nav from './components/Nav';
-import Repetitors from './components/Repetitors';
-import Download from './components/Download';
-import Loading from './components/Loading';
+import { Download } from './components/Download';
+import { Loading } from './components/Loading';
+import { Nav } from './components/Nav';
+import { Repetitors } from './components/Repetitors';
+
+import './styles/App.scss';
 
 const App = () => {
   const { repetitorsID } = useSelector(

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getMoreRepetitors } from '../redux/reduxCollection/repetitors/repetitorsReducer';
+import { getMoreRepetitors } from '../../redux/reduxCollection/repetitors/repetitorsReducer';
 
-const Download = () => {
+export const Download = () => {
   const { repetitorsID } = useSelector(
     (state: AppState) => state.repetitorsReducer
   );
@@ -25,5 +25,3 @@ const Download = () => {
     </div>
   );
 };
-
-export default Download;
