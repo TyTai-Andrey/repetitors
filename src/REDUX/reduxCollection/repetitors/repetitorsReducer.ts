@@ -3,6 +3,11 @@ import { ActionCreator } from 'redux';
 import getCardTeachers from '../../../services/getCardTeachers';
 import getTeacherIds from '../../../services/getTeacherIds';
 import { AppDispatch } from '../../rootReducer';
+import {
+  setErrorLoading,
+  setStartLoading,
+  setSuccessfulLoading,
+} from '../loading/loadingReducer';
 
 enum RepetitorsActionTypes {
   ADD_MORE_REPETITORS = 'repetitors/ADD_MORE_REPETITORS',
@@ -58,6 +63,7 @@ export const addMoreRepetitors: ActionCreator<AddMoreRepetitorsAction> = (
 // Запросить ID преподавателей и вывести 10 (или меньше)
 export const downloadId =
   (URL: string | number) => async (dispatch: AppDispatch) => {
+    dispatch(setStartLoading());
     const teacherIds = await getTeacherIds(URL);
     if (teacherIds) {
       // Для запроса репетиторов по их ID
@@ -86,13 +92,18 @@ export const downloadId =
       if (cardsTeachers) {
         // Сохнанить 10 репетиторов (или меньше)
         dispatch(setRepetitors(cardsTeachers));
+        dispatch(setSuccessfulLoading());
       }
+    } else {
+      dispatch(setErrorLoading());
     }
   };
 
 //Загрузить ещё карточек
 export const getMoreRepetitors =
   (arrayID: any) => async (dispatch: AppDispatch) => {
+    dispatch(setStartLoading());
+
     let PATH_repetitorsID = [];
 
     if (arrayID.length <= 10) {
@@ -111,6 +122,9 @@ export const getMoreRepetitors =
     const cardsTeachers = await getCardTeachers(PATH_repetitorsID);
     if (cardsTeachers) {
       dispatch(addMoreRepetitors(cardsTeachers));
+      dispatch(setSuccessfulLoading());
+    } else {
+      dispatch(setErrorLoading());
     }
   };
 
@@ -118,19 +132,6 @@ type RepetitorsActions =
   | SetRepetitorsAction
   | SetRepetitorsIdAction
   | AddMoreRepetitorsAction;
-
-//   Без понятия почему, но выбивает с ошибку с этим редюсером и с dataForRequestReducer
-
-//   No overload matches this call.
-//   Overload 1 of 3, '(reducers: ReducersMapObject<AppState, any>): Reducer<CombinedState<AppState>, AnyAction>', gave the following error.
-//     Type 'Reducer<RepetitorsReducerState, RepetitorsActions>' is not assignable to type 'Reducer<RepetitorsReducerState, any>'.
-//       Types of parameters 'prevState' and 'state' are incompatible.
-//         Type 'RepetitorsReducerState | undefined' is not assignable to type 'RepetitorsReducerState'.
-//           Type 'undefined' is not assignable to type 'RepetitorsReducerState'.
-
-//   selectDataReducer прекрасно работает и без этого any и раньше писал и всё было хорошо. Может не вижу чего-то....но вроде всё правильно....
-
-//   ну, всё правильно, кроме этого any
 
 export const repetitorsReducer: Reducer<
   RepetitorsReducerState | any,

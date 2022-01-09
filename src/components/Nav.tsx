@@ -61,7 +61,7 @@ const Nav = () => {
     dispatch(setDistrict(null));
   };
 
-  const showRepetitors = async () => {
+  const showRepetitors = () => {
     const subject = dataForRequestReducer.subject;
     const area = dataForRequestReducer.area;
     const district = dataForRequestReducer.district;
@@ -91,7 +91,7 @@ const Nav = () => {
       return;
     } else {
       // Запросить массив с id преподавателей и вывести первых 10 (или меньше, если нет 10)
-      await dispatch(downloadId(PATH_downloadId.join('&')));
+      dispatch(downloadId(PATH_downloadId.join('&')));
     }
   };
 

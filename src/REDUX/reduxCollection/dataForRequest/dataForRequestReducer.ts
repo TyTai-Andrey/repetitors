@@ -54,19 +54,6 @@ type DataForRequestActions =
   | SetSubjectAction
   | SetAreaAction;
 
-//   Без понятия почему, но выбивает с ошибку с этим редюсером и с repetitorsReducer
-
-// No overload matches this call.
-//   Overload 1 of 3, '(reducers: ReducersMapObject<AppState, any>): Reducer<CombinedState<AppState>, AnyAction>', gave the following error.
-//     Type 'Reducer<DataForRequestReducerState, DataForRequestActions>' is not assignable to type 'Reducer<DataForRequestReducerState, any>'.
-//       Types of parameters 'prevState' and 'state' are incompatible.
-//         Type 'DataForRequestReducerState | undefined' is not assignable to type 'DataForRequestReducerState'.
-//           Type 'undefined' is not assignable to type 'DataForRequestReducerState'.
-
-//   selectDataReducer прекрасно работает и без этого any и раньше писал и всё было хорошо. Может не вижу чего-то....но вроде всё правильно....
-
-//   ну, всё правильно, кроме этого any
-
 export const dataForRequestReducer: Reducer<
   DataForRequestReducerState | any,
   DataForRequestActions

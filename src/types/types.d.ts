@@ -16,8 +16,14 @@ type DataForRequestReducerState = {
   district: string | null;
 };
 
+type LoadingReducerState = {
+  loading: boolean;
+  error: boolean;
+}
+
 type AppState = {
   selectDataReducer: SelectDataReducerState;
   repetitorsReducer: RepetitorsReducerState;
   dataForRequestReducer: DataForRequestReducerState;
+  loadingReducer: LoadingReducerState;
 };
